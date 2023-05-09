@@ -159,35 +159,4 @@
 //     }
 
 
-// ------------ add movie -----------------
-    const urlMovies = 'https://lopsided-thrilling-leopon.glitch.me/movies';
-
-    function addMovie(movieData) {
-        const optionsPOST = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(movieData);
-        }
-        fetch(urlMovies, optionsPOST)
-            .then("Movie was created")
-            .catch("failed");
-    };
-
-
-    $('#create-movie-btn').click(function (e) {
-        e.preventDefault();
-        let movieAdded = {
-            "title": $('#input-title').val(),
-            "director": $('#input-director').val(),
-            "rating": $('#input-rating').val(),
-            "genre": $('#input-genre').val(),
-            "id": 9 // how to generate new id?
-        }
-        console.log(movieAdded);
-        addMovie(movieAdded);
-    });
-
-
 })();

@@ -1,6 +1,8 @@
 (function () {
     "use strict";
 
+    const urlMovies = 'https://lopsided-thrilling-leopon.glitch.me/movies';
+
 // ---------- create cards -----------
     function createCards(title, director, rating, genre) {
         $('#card-area').append(`
@@ -20,35 +22,68 @@
     }
 
 // ----------- fetch data -------------
-   function getMovies() {
+    function getMovies() {
 
-       fetch('https://lopsided-thrilling-leopon.glitch.me/movies').then(res => res.json()).then(data => data.forEach(data => {
-           console.log(data)
-           var title = data.title;
-           var director = data.director;
-           var rating = data.rating;
-           var genre = data.genre;
+        fetch('https://lopsided-thrilling-leopon.glitch.me/movies').then(res => res.json()).then(data => data.forEach(data => {
+            console.log(data)
+            var title = data.title;
+            var director = data.director;
+            var rating = data.rating;
+            var genre = data.genre;
 
-           createCards(title, director, rating, genre);
+            createCards(title, director, rating, genre);
 
-       }))
+        }))
     }
+
     getMovies()
 
-           // ----------- delete data -------------
-               $("#deleteButton").click(function () {
-                   console.log("button clicked");
-                   let idTag = $(this).attr("data-value");
-                   console.log(idTag);
-                   let deleteMovie = {
-                       method: 'DELETE',
-                       headers: {
-                           'Content-Type': 'application/json',
-                       }
-                   };
+    // ----------- delete data -------------
+    $("#deleteButton").click(function () {
+        console.log("button clicked");
+        let idTag = $(this).attr("data-value");
+        console.log(idTag);
+        let deleteMovie = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
 
-                   fetch(`https://lopsided-thrilling-leopon.glitch.me/movies/`, deleteMovie)
-                       .then(getMovies)
+        fetch(`https://lopsided-thrilling-leopon.glitch.me/movies/`, deleteMovie)
+            .then(getMovies)
 
-               })
-        })()
+    })
+
+
+// ------------ add movie -----------------
+
+    function addMovie(movieData) {
+        const optionsPOST = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(movieData)
+        };
+        fetch(urlMovies, optionsPOST)
+            .then(response => console.log(response))
+            .catch(error => console.error(error));
+    };
+
+
+    $('#create-movie-btn').click(function (e) {
+        e.preventDefault();
+        let movieAdded = {
+            "title": $('#input-title').val(),
+            "director": $('#input-director').val(),
+            "rating": $('#input-rating').val(),
+            "genre": $('#input-genre').val(),
+            "id": 9 // how to generate new id?
+        }
+        console.log(movieAdded);
+        addMovie(movieAdded);
+    });
+
+
+})();
