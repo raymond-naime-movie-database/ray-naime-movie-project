@@ -83,6 +83,7 @@
         }
         console.log(movieAdded);
         addMovie(movieAdded);
+        getMovies();
     });
 
 
