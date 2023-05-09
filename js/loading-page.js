@@ -4,6 +4,7 @@
 // -------- hides loading div ---------------
     function hideLoader() {
         $('#loading').hide();
+        $('.hidden').hide();
         // carouselPlaceholder();//adds placeholder carousel
         // cardsPlaceholder();//adds placeholder cards
     }
