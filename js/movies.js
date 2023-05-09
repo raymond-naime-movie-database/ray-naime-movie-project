@@ -14,9 +14,9 @@
                <p class="card-text">Genre: ${genre}</p>
                <p class="card-text">Rating: ${rating}</p>
                
-               <a href="#" class="btn btn-primary">rating</a>
-               <a href="#" class="btn btn-primary">edit</a>
-               <a href="#" class="btn btn-danger" id="deleteButton">delete</a>
+               <button id="deleteButton" type="submit" class="btn btn-danger">Delete Movie</button>
+               
+               
              </div>
              </div>`)
     }
@@ -39,52 +39,44 @@
     getMovies()
 
     // ----------- delete data -------------
-    $("#deleteButton").click(function () {
-        console.log("button clicked");
-        let idTag = $(this).attr("data-value");
-        console.log(idTag);
-        let deleteMovie = {
+    function deleteMovie() {
+        const optionsDelete = {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             }
         };
 
-        fetch(`https://lopsided-thrilling-leopon.glitch.me/movies/`, deleteMovie)
-            .then(getMovies)
-
-    })
 
 
 // ------------ add movie -----------------
 
-    function addMovie(movieData) {
-        const optionsPOST = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(movieData)
+        function addMovie(movieData) {
+            const optionsPOST = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(movieData)
+            };
+            fetch(urlMovies, optionsPOST)
+                .then(response => console.log(response))
+                .catch(error => console.error(error));
         };
-        fetch(urlMovies, optionsPOST)
-            .then(response => console.log(response))
-            .catch(error => console.error(error));
-    };
 
 
-    $('#create-movie-btn').click(function (e) {
-        e.preventDefault();
-        let movieAdded = {
-            "title": $('#input-title').val(),
-            "director": $('#input-director').val(),
-            "rating": $('#input-rating').val(),
-            "genre": $('#input-genre').val(),
-            "id": 9 // how to generate new id?
-        }
-        console.log(movieAdded);
-        addMovie(movieAdded);
-        getMovies();
-    });
+        $('#create-movie-btn').click(function (e) {
+            e.preventDefault();
+            let movieAdded = {
+                "title": $('#input-title').val(),
+                "director": $('#input-director').val(),
+                "rating": $('#input-rating').val(),
+                "genre": $('#input-genre').val(),
+                "id": 9 // how to generate new id?
+            }
+            console.log(movieAdded);
+            addMovie(movieAdded);
+        });
 
-
+    }
 })();
