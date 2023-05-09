@@ -1,0 +1,10 @@
+* {
+    padding: 0em;
+    margin: 0em;
+}
+
+.btn {
+    padding: 12px;
+    margin: 12px;
+    border: black;
+}

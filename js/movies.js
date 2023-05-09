@@ -8,9 +8,10 @@
                <img src="img/12-angry-men.jpeg" class="card-img-top" alt="...">
              <div class="card-body">
                <h5 class="card-title">${title}</h5>
-               <p class="card-text">${director}</p>
-               <p class="card-text">${rating}</p>
-               <p class="card-text">${genre}</p>
+               <p class="card-text">Director: ${director}</p>
+               <p class="card-text">Genre: ${genre}</p>
+               <p class="card-text">Rating: ${rating}</p>
+               
                <a href="#" class="btn btn-primary">rating</a>
                <a href="#" class="btn btn-primary">edit</a>
                <a href="#" class="btn btn-danger" id="deleteButton">delete</a>
@@ -46,7 +47,7 @@
                        }
                    };
 
-                   fetch(`https://lopsided-thrilling-leopon.glitch.me/movies/${idTag}`, deleteMovie)
+                   fetch(`https://lopsided-thrilling-leopon.glitch.me/movies/`, deleteMovie)
                        .then(getMovies)
 
                })
