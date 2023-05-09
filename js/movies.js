@@ -12,6 +12,8 @@
                <p class="card-text">${rating}</p>
                <p class="card-text">${genre}</p>
                <a href="#" class="btn btn-primary">rating</a>
+               <a href="#" class="btn btn-primary">edit</a>
+               <a href="#" class="btn btn-primary">delete</a>
              </div>
              </div>`)
     };
