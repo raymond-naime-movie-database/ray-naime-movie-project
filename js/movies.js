@@ -1,11 +1,9 @@
+// fetch("https://lopsided-thrilling-leopon.glitch.me/movies").then(res => res.json()).then(data => {
+//         console.log(data);
+//     });
 
-fetch('https://lopsided-thrilling-leopon.glitch.me/movies').then(res => res.json()).then(data => data.forEach(title => console.log(title)));
+fetch('https://lopsided-thrilling-leopon.glitch.me/movies').then(res => res.json()).then(data => data.forEach(data => {console.log(data)
+    $('#card-area').append("<div class='movie_card'><p class='title'>" + data.title.substring(0, 10))
+}));
 
-// for (let i = 0; i < 40; i ++) {
-//     console.log(data.list[i])
-//     $('card_area').append("<div class='single_card'><h3 class='title'>(`${data.title}
-//
-//     )
-//
-// }))
-    // $('.card_area').append("<div class='single_card'><p class='date'>" + data.list[i].dt_txt.substring(0, 10) + "</p>" +
+
