@@ -2,6 +2,20 @@
     "use strict";
 
     const urlMovies = 'https://lopsided-thrilling-leopon.glitch.me/movies';
+// --------- add event listener
+    function addEventListener() {
+        $('.deleteButton').click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr('value'); //this gives you the movie ID
+            console.log(id);
+        });
+
+        $('.editButton').click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr('value'); //this gives you the movie ID
+            console.log(id);
+        });
+    }
 
 // ---------- create cards -----------
     function createCards(movie) {
@@ -13,29 +27,27 @@
                <p class="card-text">Director: ${movie.director}</p>
                <p class="card-text">Genre: ${movie.genre}</p>
                <p class="card-text">Rating: ${movie.rating}</p>
-               <p class="card-text hidden">ID: ${movie.id}</p>
-               
-               <button id="delete-btn-${movie.id}" type="submit" class="deleteButton btn btn-danger">Delete Movie</button>
-               
-               
+
+               <button id="edit-btn${movie.id}" type="submit" class="editButton btn btn-danger" value="${movie.id}">Edit Movie</button>
+               <button id="delete-btn${movie.id}" type="submit" class="deleteButton btn btn-danger" value="${movie.id}">Delete Movie</button>
+
              </div>
              </div>`)
-    }
+    };
 
 // ----------- fetch data -------------
     function getMovies() {
         $('#card-area').html('');
-        fetch('https://lopsided-thrilling-leopon.glitch.me/movies').then(res => res.json()).then(data => data.forEach(movie => {
+        fetch(urlMovies)
+            .then(res => res.json())
+            .then(data => data.forEach(movie => {
             console.log(movie)
-
             createCards(movie);
+            }))
+            .then(() => addEventListener())
+    };
 
-        }))
-    }
-
-    getMovies()
-
-    // ------------ add movie -----------------
+// ------------ add movie -----------------
 
     function addMovie(movieData) {
         const optionsPOST = {
@@ -64,7 +76,7 @@
         addMovie(movieAdded);
     });
 
-    // ----------- delete data -------------
+// ----------- delete movie -------------
 
     function deleteMovie() {
         const optionsDelete = {
@@ -80,19 +92,24 @@
             .then(() => getMovies())
     };
 
-    $('.deleteButton').click(function (e) {
-        e.preventDefault();
 
-        var btn = $(this).parent('h5').val();
+// ----------- edit movie -------------
 
+    function editMovie() {
+        const optionsDelete = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // body: JSON.(${id})
+        };
+        fetch(urlMovies, optionsDelete)
+            .then(response => console.log(response))
+            .catch(error => console.error(error))
+            .then(() => getMovies())
+    };
 
-        console.log(btn)
-        // let movieDeleted = {
-        //     id: ${}
-        // }
-        // console.log(movieDeleted);
-        // deleteMovie(movieDeleted);
-    });
-
+// ---------- first call ----------
+    getMovies()
 
 })();
