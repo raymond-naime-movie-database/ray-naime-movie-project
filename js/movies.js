@@ -95,19 +95,19 @@
 
 // ----------- edit movie -------------
 
-    function editMovie() {
-        const optionsDelete = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            // body: JSON.(${id})
-        };
-        fetch(urlMovies, optionsDelete)
-            .then(response => console.log(response))
-            .catch(error => console.error(error))
-            .then(() => getMovies())
-    };
+    // function editMovie() {
+    //     const optionsEdit = {
+    //         method: 'PUT',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         // body: JSON.(${id})
+    //     };
+    //     fetch(urlMovies, optionsEdit)
+    //         .then(response => console.log(response))
+    //         .catch(error => console.error(error))
+    //         .then(() => getMovies())
+    // };
 
 // ---------- first call ----------
     getMovies()
