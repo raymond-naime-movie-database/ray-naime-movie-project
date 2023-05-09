@@ -13,22 +13,41 @@
                <p class="card-text">${genre}</p>
                <a href="#" class="btn btn-primary">rating</a>
                <a href="#" class="btn btn-primary">edit</a>
-               <a href="#" class="btn btn-primary">delete</a>
+               <a href="#" class="btn btn-danger" id="deleteButton">delete</a>
              </div>
              </div>`)
-    };
-
+    }
 
 // ----------- fetch data -------------
-    fetch('https://lopsided-thrilling-leopon.glitch.me/movies').then(res => res.json()).then(data => data.forEach(data => {
-        console.log(data)
-        var title = data.title;
-        var director = data.director;
-        var rating = data.rating;
-        var genre = data.genre;
+   function getMovies() {
 
-        createCards(title, director, rating, genre);
-    }));
+       fetch('https://lopsided-thrilling-leopon.glitch.me/movies').then(res => res.json()).then(data => data.forEach(data => {
+           console.log(data)
+           var title = data.title;
+           var director = data.director;
+           var rating = data.rating;
+           var genre = data.genre;
 
+           createCards(title, director, rating, genre);
 
-})();
+       }))
+    }
+    getMovies()
+
+           // ----------- delete data -------------
+               $("#deleteButton").click(function () {
+                   console.log("button clicked");
+                   let idTag = $(this).attr("data-value");
+                   console.log(idTag);
+                   let deleteMovie = {
+                       method: 'DELETE',
+                       headers: {
+                           'Content-Type': 'application/json',
+                       }
+                   };
+
+                   fetch(`https://lopsided-thrilling-leopon.glitch.me/movies/${idTag}`, deleteMovie)
+                       .then(getMovies)
+
+               })
+        })()
