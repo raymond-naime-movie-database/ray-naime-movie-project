@@ -3,10 +3,21 @@
 
     const urlMovies = 'https://lopsided-thrilling-leopon.glitch.me/movies';
 
+    let moviesObj = [];
+
+// -------- loading animation -------
+    function hideLoader() {
+        $('#loading').hide();
+    }
+    // setTimeout(hideLoader, 2000);
+    function showLoader() {
+        $('#loading').show();
+    }
+
 // ---------- create cards -----------
     function createCards(movie) {
         $('#card-area').append(`
-             <div id="movie-${movie.id}" class="card-group m-2" style="width: 15rem;">
+             <div id="movie-${movie.id}" class="movie-cards card-group m-2" style="width: 15rem;">
                <img src="img/poster-placeholder.jpg" class="card-img-top" style="height: 220px" alt="...">
              <div class="card-body d-flex row" style="height: 250px">
              <div class="align-items-start">
@@ -50,21 +61,26 @@
                 </div>
              </div>
              </div>`)
+// hide loading animation
+        hideLoader();
     }
 
 // ----------- fetch data -------------
     function getMovies() {
         $('#card-area').html('');
+        showLoader();
+        moviesObj.length = 0;
         fetch(urlMovies)
             .then(res => res.json())
             .then(data => data.forEach(movie => {
-            console.log(movie)
-            createCards(movie);
-            }))
+                // console.log(movie)
+                moviesObj.push(movie);
+            })).then(() => {
+            moviesObj.forEach(createCards);
+        })
     };
 
 // ------------ add movie -----------------
-
     function addMovie(movieData) {
         const optionsPOST = {
             method: 'POST',
@@ -123,7 +139,6 @@
 
 
 // ----------- edit movie -------------
-
     function editMovie(movieData) {
         const optionsEdit = {
             method: 'PUT',
@@ -153,11 +168,19 @@
         editMovie(movieEdit);
     });
 
+// ----------- sort movies -------------
+    function sortTitles(){
+        moviesObj.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
+        console.log(moviesObj);
+        $('#card-area').html('');
+        moviesObj.forEach(createCards);
+    };
+
+    $('#sort-movies').click(function (e) {
+        sortTitles();
+    });
+
 // ---------- first call ----------
-    function hideLoader() {
-        $('#loading').hide();
-        getMovies();
-    }
-    setTimeout(hideLoader, 2000); //change to hide after fetch data comes back
+    getMovies();
 
 })();
