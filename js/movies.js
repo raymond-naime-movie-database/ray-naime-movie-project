@@ -92,7 +92,7 @@
     });
 
 // ----------- delete movie -------------
-    function deleteMovie() {
+    function deleteMovie(id) {
         const optionsDelete = {
             method: 'DELETE',
             headers: {
@@ -100,10 +100,10 @@
             },
             // body: JSON.(${id})
         };
-        fetch(urlMovies, optionsDelete)
+        fetch(urlMovies + `/${id}`, optionsDelete)
             .then(response => console.log(response))
             .catch(error => console.error(error))
-            // .then(() => getMovies())
+            .then(() => getMovies())
     };
 
     $('body').on('click', '.deleteButton', function (e) {
@@ -118,7 +118,7 @@
             "id": id
         }
         console.log(movieDelete);
-        // deleteMovie(movieDelete);
+        deleteMovie(id);
     });
 
 
@@ -132,10 +132,10 @@
             },
             body: JSON.stringify(movieData)
         };
-        fetch(urlMovies, optionsEdit)
+        fetch(urlMovies + `/${movieData.id}`, optionsEdit)
             .then(response => console.log(response))
             .catch(error => console.error(error))
-            // .then(() => getMovies())
+            .then(() => getMovies())
     };
 
     $('body').on('click', '.saveButton', function (e) {
@@ -150,7 +150,7 @@
             "id": id
         }
         console.log(movieEdit);
-        // editMovie(movieEdit);
+        editMovie(movieEdit);
     });
 
 // ---------- first call ----------
@@ -158,6 +158,6 @@
         $('#loading').hide();
         getMovies();
     }
-    setTimeout(hideLoader, 1000); //change to hide after fetch data comes back
+    setTimeout(hideLoader, 2000); //change to hide after fetch data comes back
 
 })();
