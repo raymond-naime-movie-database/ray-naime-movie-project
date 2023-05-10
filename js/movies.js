@@ -6,7 +6,7 @@
 // ---------- create cards -----------
     function createCards(movie) {
         $('#card-area').append(`
-             <div class="card-group m-2" style="width: 15rem;">
+             <div id="movie-${movie.id}" class="card-group m-2" style="width: 15rem;">
                <img src="img/poster-placeholder.jpg" class="card-img-top" style="height: 220px" alt="...">
              <div class="card-body d-flex row" style="height: 250px">
              <div class="align-items-start">
@@ -22,7 +22,7 @@
                     Edit Movie
                   </button>
                   <ul class="dropdown-menu" style="width: 400px;" aria-labelledby="edit-movie${movie.id}">
-                    <li class="dropdown-item"><input type="text" class="form-control" value="${movie.title}" id="edit-title"></li>
+                    <li class="dropdown-item"><input type="text" class="form-control" value="${movie.title}" id="edit-title${movie.id}"></li>
                     <li class="dropdown-item"><input type="text" class="form-control" id="edit-director${movie.id}" value="${movie.director}"></li>
                     <li class="dropdown-item"><select id="edit-genre${movie.id}" class="form-select">
                       <option selected>${movie.genre}</option>
@@ -85,14 +85,13 @@
             "title": $('#input-title').val(),
             "director": $('#input-director').val(),
             "rating": $('#input-rating').val(),
-            "genre": $('#input-genre').val(),
+            "genre": $('#input-genre').val()
         }
         console.log(movieAdded);
         addMovie(movieAdded);
     });
 
 // ----------- delete movie -------------
-
     function deleteMovie() {
         const optionsDelete = {
             method: 'DELETE',
@@ -104,13 +103,22 @@
         fetch(urlMovies, optionsDelete)
             .then(response => console.log(response))
             .catch(error => console.error(error))
-            .then(() => getMovies())
+            // .then(() => getMovies())
     };
 
     $('body').on('click', '.deleteButton', function (e) {
         e.preventDefault();
         var id = $(this).attr('value');
         console.log(id);
+        let movieDelete = {
+            "title": $(`#edit-title${id}`).val(),
+            "director": $(`#edit-director${id}`).val(),
+            "rating": $(`#edit-rating${id}`).val(),
+            "genre": $(`#edit-genre${id}`).val(),
+            "id": id
+        }
+        console.log(movieDelete);
+        // deleteMovie(movieDelete);
     });
 
 
@@ -127,13 +135,22 @@
         fetch(urlMovies, optionsEdit)
             .then(response => console.log(response))
             .catch(error => console.error(error))
-            .then(() => getMovies())
+            // .then(() => getMovies())
     };
 
     $('body').on('click', '.saveButton', function (e) {
         e.preventDefault();
         var id = $(this).attr('value');
         console.log(id);
+        let movieEdit = {
+            "title": $(`#edit-title${id}`).val(),
+            "director": $(`#edit-director${id}`).val(),
+            "rating": $(`#edit-rating${id}`).val(),
+            "genre": $(`#edit-genre${id}`).val(),
+            "id": id
+        }
+        console.log(movieEdit);
+        // editMovie(movieEdit);
     });
 
 // ---------- first call ----------
