@@ -50,7 +50,7 @@
                 </div>
              </div>
              </div>`)
-    };
+    }
 
 // ----------- fetch data -------------
     function getMovies() {
@@ -77,7 +77,7 @@
             .then(response => console.log(response))
             .catch(error => console.error(error))
             .then(() => getMovies())
-    };
+    }
 
     $('#create-movie-btn').click(function (e) {
         e.preventDefault();
