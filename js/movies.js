@@ -180,6 +180,19 @@
         sortTitles();
     });
 
+
+
+// ----------- search movie -------------
+
+    const movieList = document.getElementById('getMovies');
+    const searchBar = document.getElementById('searchBar');
+
+    console.log(searchBar);
+
+    searchBar.addEventListener('keyup', (e) => {
+        console.log(e);
+    })
+
 // ---------- first call ----------
     getMovies();
 
