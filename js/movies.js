@@ -201,11 +201,17 @@
 
     const movieList = document.getElementById('getMovies');
     const searchBar = document.getElementById('searchBar');
+    let movie = [];
 
-    console.log(searchBar);
+    // console.log(searchBar);
 
     searchBar.addEventListener('keyup', (e) => {
-        console.log(e);
+        const searchString = e.target.value;
+        const searchedMovie = movie.filter( mov => {
+            return movie.title.contains(searchString);
+
+        })
+        console.log(searchedMovie);
     })
 
 // ---------- first call ----------
