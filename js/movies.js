@@ -192,9 +192,23 @@
     });
 
 // ----------- sort movies -------------
-    $('#sort-movies').click(function (e) {
+    $('#sort-title').click(function (e) {
         e.preventDefault();
         moviesObj.sort((a, b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
+        $('#card-area').html('');
+        moviesObj.forEach(createCards);
+    });
+
+    $('#sort-director').click(function (e) {
+        e.preventDefault();
+        moviesObj.sort((a, b) => (a.director > b.director) ? 1 : ((b.director > a.director) ? -1 : 0));
+        $('#card-area').html('');
+        moviesObj.forEach(createCards);
+    });
+
+    $('#sort-genre').click(function (e) {
+        e.preventDefault();
+        moviesObj.sort((a, b) => (a.genre > b.genre) ? 1 : ((b.genre > a.genre) ? -1 : 0));
         $('#card-area').html('');
         moviesObj.forEach(createCards);
     });
