@@ -205,7 +205,7 @@
         let searchString = searchBar.value.toLowerCase();
         let filteredMovies = [];
         for(let i=0; i<moviesObj.length; i++) {
-            if (moviesObj[i].title.toLowerCase().includes(searchString)) {
+            if (moviesObj[i].title.toLowerCase().includes(searchString) || moviesObj[i].genre.toLowerCase().includes(searchString) || moviesObj[i].rating.toString().includes(searchString)) {
                 filteredMovies.push(moviesObj[i]);
             }
         };
