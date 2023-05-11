@@ -92,6 +92,8 @@
                 .then(res => res.json())
                 .then(data => data.forEach(movie => {
                     moviesObj.push(movie);
+                    // console.log(movie);
+
                 }))
                 .then(() => {
                     moviesObj.forEach(createCards);
@@ -199,22 +201,25 @@
 
 // ----------- search movie -------------
 
-    const movieList = document.getElementById('getMovies');
-    const searchBar = document.getElementById('searchBar');
-    let movie = [];
+    function searchMovie() {
+        let searchString = searchBar.value.toLowerCase();
+        let filteredMovies = [];
+        for(let i=0; i<moviesObj.length; i++) {
+            if (moviesObj[i].title.toLowerCase().includes(searchString)) {
+                filteredMovies.push(moviesObj[i]);
+            }
+        };
+        // console.log(filteredMovies);
+        $('#card-area').html('');
+        filteredMovies.forEach(createCards);
+    }
+// listener for the search text bar
+    searchBar.addEventListener('keyup', (searchMovie))
 
-    // console.log(searchBar);
 
-    searchBar.addEventListener('keyup', (e) => {
-        const searchString = e.target.value;
-        const searchedMovie = movie.filter( mov => {
-            return movie.title.contains(searchString);
-
-        })
-        console.log(searchedMovie);
-    })
 
 // ---------- first call ----------
     getMovies();
+    // console.log(moviesObj);
 
 })();
