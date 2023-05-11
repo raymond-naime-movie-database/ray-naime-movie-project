@@ -8,11 +8,11 @@
 // -------- loading animation -------
     function hideLoader() {
         $('#loading').hide();
-    }
+    };
 
     function showLoader() {
         $('#loading').show();
-    }
+    };
 
 // ---------- add poster -----------
     function addPoster(poster, id) {
@@ -80,7 +80,7 @@
         getPoster(movie.title, movie.id);
 // hide loading animation
         hideLoader();
-    }
+    };
 
 // ----------- fetch data -------------
     function getMovies() {
@@ -114,7 +114,7 @@
             .then(response => console.log(response))
             .catch(error => console.error(error))
             .then(() => getMovies())
-    }
+    };
 
     $('#create-movie-btn').click(function (e) {
         e.preventDefault();
@@ -150,7 +150,6 @@
         deleteMovie(id);
     });
 
-
 // ----------- edit movie -------------
     function updateMovie(movie) {
         let id = '#movie-info' + movie.id;
@@ -162,7 +161,7 @@
         `)
         let movIndex = moviesObj.findIndex((mov => mov.id == movie.id));
         moviesObj[movIndex] = movie;
-    }
+    };
 
     function editMovie(movieData) {
         const optionsEdit = {
@@ -214,8 +213,8 @@
     });
 
 // ----------- search movie -------------
-
-    function searchMovie() {
+    $('#searchBar').keyup(function (e) {
+        e.preventDefault();
         let searchString = searchBar.value.toLowerCase();
         let filteredMovies = [];
         for(let i=0; i<moviesObj.length; i++) {
@@ -223,17 +222,12 @@
                 filteredMovies.push(moviesObj[i]);
             }
         };
-        // console.log(filteredMovies);
         $('#card-area').html('');
         filteredMovies.forEach(createCards);
-    }
-// listener for the search text bar
-    searchBar.addEventListener('keyup', (searchMovie))
-
-
+    });
 
 // ---------- first call ----------
     getMovies();
-    // console.log(moviesObj);
+
 
 })();
